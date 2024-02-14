@@ -1,0 +1,556 @@
+{% load static %}
+<!DOCTYPE html>
+<html style="font-size: 16px;"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Login"><meta name="description" content="">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'nicepage.css' %}" media="screen">
+    <script class="u-script" type="text/javascript" src="{% static 'jquery.js' %}" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{% static 'nicepage.js' %}" defer=""></script>
+<meta name="generator" content="Nicepage 6.4.0, nicepage.com"></head>
+<body class="u-body u-xl-mode" data-style="login-template-1" data-posts="" data-global-section-properties="{&quot;code&quot;:&quot;LOGIN&quot;,&quot;colorings&quot;:{&quot;light&quot;:[&quot;clean&quot;,&quot;clean&quot;],&quot;colored&quot;:[&quot;clean&quot;,&quot;clean&quot;,&quot;clean&quot;],&quot;dark&quot;:[&quot;clean&quot;,&quot;clean&quot;,&quot;clean&quot;]},&quot;isPreset&quot;:true}" data-source="fix" data-lang="pt" data-page-sections-style="[{&quot;name&quot;:&quot;login-form-1&quot;,&quot;margin&quot;:&quot;both&quot;,&quot;repeat&quot;:false}]" data-page-coloring-types="{&quot;light&quot;:[&quot;clean&quot;,&quot;clean&quot;],&quot;colored&quot;:[&quot;clean&quot;,&quot;clean&quot;,&quot;clean&quot;],&quot;dark&quot;:[&quot;clean&quot;,&quot;clean&quot;,&quot;clean&quot;]}" data-page-category="&quot;Login&quot;"><section class="u-clearfix u-image u-block-3eea-1" custom-posts-hash="[]" data-style="blank" data-section-properties="{&quot;margin&quot;:&quot;none&quot;,&quot;stretch&quot;:true}" id="carousel_a3a0" data-source="functional_fix" data-id="3eea" data-image-width="1920" data-image-height="1200">
+  <div class="u-clearfix u-sheet u-block-3eea-2"><div class="u-align-center u-border-14 u-border-black u-border-no-left u-border-no-right u-border-no-top u-container-style u-custom-border u-expanded-width-sm u-expanded-width-xs u-group u-opacity u-opacity-55 u-palette-1-light-2 u-shape-rectangle u-block-3eea-3">
+    <div class="u-container-layout u-block-3eea-4"><img class="u-image u-image-circle u-preserve-proportions u-block-3eea-19" src="{% static 'images/456212.png' %}" alt="" data-image-width="128" data-image-height="128"><h2 class="u-text u-text-black u-text-default u-block-3eea-5">Login</h2><div class="u-expanded-width-xs u-form u-login-control u-block-3eea-6">
+      <form action="#" method="POST" class="u-clearfix u-form-custom-backend u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 0px;" data-services="">
+        <div class="u-form-group u-form-name u-label-top u-block-3eea-7">
+          <label for="username-a30d" class="u-label u-text-black u-block-3eea-8">Username</label>
+          <input type="text" placeholder="Enter your Username" id="username-a30d" name="username" class="u-border-2 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-block-3eea-9" required="">
+        </div>
+        <div class="u-form-group u-form-password u-label-top u-block-3eea-10">
+          <label for="password-a30d" class="u-label u-text-black u-block-3eea-11">Password</label>
+          <input type="text" placeholder="Enter your Password" id="password-a30d" name="password" class="u-border-2 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-block-3eea-12" required="">
+        </div>
+        <div class="u-form-checkbox u-form-group u-label-top u-block-3eea-13">
+          <input type="checkbox" id="checkbox-a30d" name="remember" value="On" class="u-field-input">
+          <label for="checkbox-a30d" class="u-block-3eea-14 u-field-label u-text-black" style="font-size: 1rem; letter-spacing: 0px; text-transform: none">Remember me</label>
+        </div>
+        <div class="u-align-left u-form-group u-form-submit u-label-top u-block-3eea-15">
+          
+          <input type="submit" value="submit" class="u-form-control-hidden">
+        <a href="#" class="u-active-palette-2-light-2 u-border-none u-btn u-btn-submit u-button-style u-hover-palette-2-light-2 u-palette-1-light-1 u-block-3eea-16">Login</a></div>
+        <input type="hidden" value="" name="recaptchaResponse">
+        
+        
+      </form>
+    </div><a href="https://nicepage.com/k/parking-html-templates" class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-btn u-button-style u-login-control u-login-create-account u-none u-text-black u-block-3eea-18">Don't have an account?</a><a href="https://nicepage.com/one-page-template" class="u-border-1 u-border-active-black u-border-hover-black u-border-no-left u-border-no-right u-border-no-top u-btn u-button-style u-login-control u-login-create-account u-none u-text-black u-block-3eea-17">Forgot password?</a></div>
+</div></div>
+<style data-mode="XL">@media (min-width: 1200px) {
+  .u-block-3eea-1 {
+    background-image: url("{% static 'images/0b371d95-cef3-309c-0783-7dfc0a6d54d4.jpg' %}");
+    background-position: 50% 50%;
+  }
+  .u-block-3eea-2 {
+    min-height: 696px;
+  }
+  .u-block-3eea-3 {
+    width: 477px;
+    min-height: 643px;
+    box-shadow: 5px 5px 20px 0 rgba(var(--black-r),var(--black-g),var(--black-b),0.4);
+    height: auto;
+    margin-top: 33px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+  .u-block-3eea-4 {
+    padding-top: 22px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 5px;
+  }
+  .u-block-3eea-19 {
+    width: 128px;
+    height: 128px;
+    margin-top: 1px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .u-block-3eea-5 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: none;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .u-block-3eea-6 {
+    height: 264px;
+    width: 346px;
+    margin-top: 19px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .u-block-3eea-8 {
+    font-size: 1rem;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+  .u-block-3eea-9 {
+    background-image: none;
+  }
+  .u-block-3eea-11 {
+    font-size: 1rem;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+  .u-block-3eea-12 {
+    background-image: none;
+  }
+  .u-block-3eea-16 {
+    border-style: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-image: none;
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 20px;
+  }
+  .u-block-3eea-18 {
+    border-style: solid;
+    font-weight: 700;
+    font-size: 1.125rem;
+    align-self: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .u-block-3eea-17 {
+    border-style: solid;
+    font-weight: 700;
+    font-size: 1.125rem;
+    align-self: center;
+    margin-top: 9px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}</style><style data-mode="LG">@media (max-width: 1199px) and (min-width: 992px) {
+  .u-block-3eea-1 {
+    background-image: url("np://user.desktop.nicepage.com/Site_88975602/images/0b371d95-cef3-309c-0783-7dfc0a6d54d4.jpg?rand=5835");
+    background-position: 50% 50%;
+  }
+  .u-block-3eea-2 {
+    min-height: 574px;
+  }
+  .u-block-3eea-3 {
+    box-shadow: 5px 5px 20px 0 rgba(var(--black-r),var(--black-g),var(--black-b),0.4);
+    width: 477px;
+    min-height: 643px;
+    margin-top: 33px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .u-block-3eea-4 {
+    padding-top: 22px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .u-block-3eea-19 {
+    width: 128px;
+    height: 128px;
+    margin-top: 1px;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+  }
+  .u-block-3eea-5 {
+    text-transform: none;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .u-block-3eea-6 {
+    height: 264px;
+    width: 346px;
+    margin-top: 19px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .u-block-3eea-8 {
+    font-size: 1rem;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+  .u-block-3eea-9 {
+    background-image: none;
+  }
+  .u-block-3eea-11 {
+    font-size: 1rem;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+  .u-block-3eea-12 {
+    background-image: none;
+  }
+  .u-block-3eea-16 {
+    background-image: none;
+    border-style: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 20px;
+  }
+  .u-block-3eea-18 {
+    border-style: solid;
+    font-weight: 700;
+    font-size: 1.125rem;
+    align-self: center;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .u-block-3eea-17 {
+    border-style: solid;
+    font-weight: 700;
+    font-size: 1.125rem;
+    align-self: center;
+    margin-top: 9px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}</style><style data-mode="MD">@media (max-width: 991px) and (min-width: 768px) {
+  .u-block-3eea-1 {
+    background-image: url("np://user.desktop.nicepage.com/Site_88975602/images/0b371d95-cef3-309c-0783-7dfc0a6d54d4.jpg?rand=5835");
+    background-position: 50% 50%;
+  }
+  .u-block-3eea-2 {
+    min-height: 440px;
+  }
+  .u-block-3eea-3 {
+    box-shadow: 5px 5px 20px 0 rgba(var(--black-r),var(--black-g),var(--black-b),0.4);
+    width: 477px;
+    min-height: 643px;
+    margin-top: 33px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .u-block-3eea-4 {
+    padding-top: 22px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .u-block-3eea-19 {
+    width: 128px;
+    height: 128px;
+    margin-top: 1px;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+  }
+  .u-block-3eea-5 {
+    text-transform: none;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .u-block-3eea-6 {
+    height: 264px;
+    width: 346px;
+    margin-top: 19px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .u-block-3eea-8 {
+    font-size: 1rem;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+  .u-block-3eea-9 {
+    background-image: none;
+  }
+  .u-block-3eea-11 {
+    font-size: 1rem;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+  .u-block-3eea-12 {
+    background-image: none;
+  }
+  .u-block-3eea-16 {
+    background-image: none;
+    border-style: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 20px;
+  }
+  .u-block-3eea-18 {
+    border-style: solid;
+    font-weight: 700;
+    font-size: 1.125rem;
+    align-self: center;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .u-block-3eea-17 {
+    border-style: solid;
+    font-weight: 700;
+    font-size: 1.125rem;
+    align-self: center;
+    margin-top: 9px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}</style><style data-mode="SM">@media (max-width: 767px) and (min-width: 576px) {
+  .u-block-3eea-1 {
+    background-image: url("np://user.desktop.nicepage.com/Site_88975602/images/0b371d95-cef3-309c-0783-7dfc0a6d54d4.jpg?rand=5835");
+    background-position: 50% 50%;
+  }
+  .u-block-3eea-2 {
+    min-height: 854px;
+  }
+  .u-block-3eea-3 {
+    box-shadow: 5px 5px 20px 0 rgba(var(--black-r),var(--black-g),var(--black-b),0.4);
+    min-height: 643px;
+    margin-top: 33px;
+    margin-bottom: 20px;
+  }
+  .u-block-3eea-4 {
+    padding-top: 22px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .u-block-3eea-19 {
+    width: 128px;
+    height: 128px;
+    margin-top: 1px;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+  }
+  .u-block-3eea-5 {
+    text-transform: none;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .u-block-3eea-6 {
+    height: 288px;
+    width: 468px;
+    margin-top: 19px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .u-block-3eea-8 {
+    font-size: 1rem;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+  .u-block-3eea-9 {
+    background-image: none;
+  }
+  .u-block-3eea-11 {
+    font-size: 1rem;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+  .u-block-3eea-12 {
+    background-image: none;
+  }
+  .u-block-3eea-16 {
+    background-image: none;
+    border-style: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 20px;
+  }
+  .u-block-3eea-18 {
+    border-style: solid;
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    align-self: center;
+  }
+  .u-block-3eea-17 {
+    border-style: solid;
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-top: 9px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    align-self: center;
+  }
+}</style><style data-mode="XS">@media (max-width: 575px) {
+  .u-block-3eea-1 {
+    background-image: url("np://user.desktop.nicepage.com/Site_88975602/images/0b371d95-cef3-309c-0783-7dfc0a6d54d4.jpg?rand=5835");
+    background-position: 50% 50%;
+  }
+  .u-block-3eea-2 {
+    min-height: 538px;
+  }
+  .u-block-3eea-3 {
+    box-shadow: 5px 5px 20px 0 rgba(var(--black-r),var(--black-g),var(--black-b),0.4);
+    min-height: 643px;
+    margin-top: 33px;
+    margin-bottom: 20px;
+  }
+  .u-block-3eea-4 {
+    padding-top: 22px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .u-block-3eea-19 {
+    width: 128px;
+    height: 128px;
+    margin-top: 1px;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+  }
+  .u-block-3eea-5 {
+    text-transform: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .u-block-3eea-6 {
+    height: 288px;
+    margin-top: 19px;
+    margin-bottom: 0;
+  }
+  .u-block-3eea-8 {
+    font-size: 1rem;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+  .u-block-3eea-9 {
+    background-image: none;
+  }
+  .u-block-3eea-11 {
+    font-size: 1rem;
+    letter-spacing: 0px;
+    text-transform: none;
+  }
+  .u-block-3eea-12 {
+    background-image: none;
+  }
+  .u-block-3eea-16 {
+    background-image: none;
+    border-style: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+    padding-top: 19px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 20px;
+  }
+  .u-block-3eea-18 {
+    border-style: solid;
+    font-weight: 700;
+    font-size: 1.125rem;
+    align-self: center;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .u-block-3eea-17 {
+    border-style: solid;
+    font-weight: 700;
+    font-size: 1.125rem;
+    align-self: center;
+    margin-top: 9px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}</style></section>
+</body></html>
