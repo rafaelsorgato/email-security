@@ -39,7 +39,7 @@ def user_login(request):
             password = form.cleaned_data['password']
             user = authenticate(username=username,password=password)
             if user:
-                return render(request, 'profile.html')
+                return HttpResponseRedirect('/profile/')
             else:
                 messages.error(request, "Wrong username/email or password")
                 return render(request, 'login.html', {'form': form})

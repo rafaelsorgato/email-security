@@ -1,5 +1,4 @@
 {% load static %}<!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -30,19 +29,24 @@
 <div class="card shadow mb-4">
     <div class="card">
         <div class="card-header">
-            <h6 class="m-0 font-weight-bold text-primary">Your name</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Update profile</h6>
         </div>
         <div class="card-body">
             <form>
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label for="inputUsername">Username</label>
-                            <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+                            <label >Username</label>
+                            {{ profile_form.username }}
                         </div>
                         <div class="form-group">
-                            <label for="inputUsername">Biography</label>
-                            <textarea rows="2" class="form-control" id="inputBio" placeholder="Tell something about yourself"></textarea>
+                            <label >Full Name</label>
+                            {{ profile_form.fullname }}
+                        </div>
+                        <div class="form-group">
+                            <label >Email</label>
+                            {{ profile_form.email }}
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -55,13 +59,52 @@
                         </div>
                     </div>
                 </div>
-
+                {% if messages %}
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+                {% endif %}
                 <button type="submit" class="btn btn-primary">Save changes</button>
             </form>
 
         </div>
     </div>
+</div>
+<div class="card shadow mb-4">
+    <div class="card">
+        <div class="card-header">
+            <h6 class="m-0 font-weight-bold text-primary">Change password</h6>
+        </div>
+        <div class="card-body">
+            <form>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>Old Password</label>
+                            {{ password_form.oldpassword }}
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            {{ password_form.password }}
+                        </div>
+                        <div class="form-group">
+                            <label >Repeat New Password</label>
+                            {{ password_form.repeatpassword }}
+                        </div>
+                    </div>
+                </div>
+                {% if messages %}
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </form>
+
+        </div>
     </div>
+</div>
 </div>
 <!-- /.container-fluid -->
 </div>
