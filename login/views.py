@@ -3,9 +3,9 @@ from django.http import HttpResponse,HttpResponseRedirect
 from .forms import LoginForm, RegisterForm
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,get_user
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 
 
 
@@ -38,7 +38,8 @@ def user_login(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(username=username,password=password)
-            if user:
+            if user is not None:
+                login(request, user)
                 return HttpResponseRedirect('/profile/')
             else:
                 messages.error(request, "Wrong username/email or password")
@@ -46,12 +47,6 @@ def user_login(request):
     return render(request, 'login.html', {'form': form})
 
 
-def profile(request):
-    user_id = request.session.get('user_id')
-    if user_id:
-        messages.error(request, user_id)
-        return render(request, 'login.html')
-    else:
-        return render('login')
+
     
 
