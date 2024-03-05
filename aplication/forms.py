@@ -12,3 +12,15 @@ class change_password_form(forms.Form):
     oldpassword = forms.CharField(max_length=100,widget=forms.PasswordInput(attrs={'class':'form-control'}))
     password = forms.CharField(max_length=100,widget=forms.PasswordInput(attrs={'class':'form-control'}))
     repeatpassword = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'class':'form-control'}))
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Username or Email'}))
+    password = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder': 'Password'}))
+
+class RegisterForm(forms.Form):
+    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control form-control-user', 'placeholder': 'Username'}))
+    fullname= forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control form-control-user', 'placeholder': 'Fullname'}))
+    email = forms.CharField(max_length=100, widget=forms.EmailInput(attrs={'class':'form-control form-control-user', 'placeholder': 'Email'}))
+    password = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'class':'form-control form-control-user', 'placeholder': 'Password'}))
+    repeatpassword = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'class':'form-control form-control-user', 'placeholder': 'Repeat Password'}))

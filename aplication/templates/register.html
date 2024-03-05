@@ -1,4 +1,6 @@
-{% load static %}<!DOCTYPE html>
+{% load static %}
+
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -15,9 +17,22 @@
 <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet" static_added="True"/>
 </head>
 <body class="bg-gradient-primary">
+    
 <div class="container">
 <div class="card o-hidden border-0 shadow-lg my-5">
 <div class="card-body p-0">
+        <!-- Topbar -->
+        <nav class="bg-white topbar shadow d-flex justify-content-center align-items-center">
+            <ul class="list-unstyled d-flex justify-content-center align-items-center mb-0">
+                <li class="nav-item">
+                    <img style="max-width: 200px; max-height: 60px;" src="{% static 'img/logos.png' %}" alt="">
+                </li>
+                <li class="nav-item ml-2">
+                    <h3 class="m-0">Email Security</h3>
+                </li>
+            </ul>
+        </nav>
+        <!-- End of Topbar -->
 <!-- Nested Row within Card Body -->
 <div class="row">
 <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
@@ -26,43 +41,36 @@
 <div class="text-center">
 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
 </div>
-<form class="user">
-<div class="form-group row">
-<div class="col-sm-6 mb-3 mb-sm-0">
-<input class="form-control form-control-user" id="exampleFirstName" placeholder="First Name" type="text"/>
-</div>
-<div class="col-sm-6">
-<input class="form-control form-control-user" id="exampleLastName" placeholder="Last Name" type="text"/>
-</div>
+<form action="{% url 'register' %}" method="POST" class="user">
+        {% csrf_token %}
+    <div class="form-group">
+        {{ form.fullname }}
+    </div>
+<div class="form-group">
+    {{ form.username }}
 </div>
 <div class="form-group">
-<input class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address" type="email"/>
+    {{ form.email }}
 </div>
 <div class="form-group row">
 <div class="col-sm-6 mb-3 mb-sm-0">
-<input class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" type="password"/>
+    {{ form.password }}
 </div>
 <div class="col-sm-6">
-<input class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password" type="password"/>
+    {{ form.repeatpassword }}
 </div>
 </div>
 <a class="btn btn-primary btn-user btn-block" href="login.html">
                                     Register Account
                                 </a>
-<hr/>
-<a class="btn btn-google btn-user btn-block" href="index.html">
-<i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-<a class="btn btn-facebook btn-user btn-block" href="index.html">
-<i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
+<hr>
 </form>
-<hr/>
+
 <div class="text-center">
 <a class="small" href="forgot-password.html">Forgot Password?</a>
 </div>
 <div class="text-center">
-<a class="small" href="login.html">Already have an account? Login!</a>
+<a class="small" href="/login">Already have an account? Login!</a>
 </div>
 </div>
 </div>
