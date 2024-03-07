@@ -41,12 +41,13 @@
 <div class="text-center">
 <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
 </div>
-<form class="user">
+<form action="{% url 'login' %}" method="POST" class="user">
+    {% csrf_token %}
 <div class="form-group">
-<input aria-describedby="emailHelp" class="form-control form-control-user" id="exampleInputEmail" placeholder="Enter Email Address..." type="email"/>
+    {{ form.username }}
 </div>
 <div class="form-group">
-<input class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" type="password"/>
+    {{ form.password }}
 </div>
 <div class="form-group">
 <div class="custom-control custom-checkbox small">
@@ -55,10 +56,8 @@
                                                     Me</label>
 </div>
 </div>
-<a class="btn btn-primary btn-user btn-block" href="index.html">
-                                            Login
-                                        </a>
-<hr/>
+<button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
+                                    </hr>
 <a class="btn btn-google btn-user btn-block" href="index.html">
 <i class="fab fa-google fa-fw"></i> Login with Google
                                         </a>
@@ -66,7 +65,7 @@
 <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                         </a>
 </form>
-<hr/>
+</hr>
 <div class="text-center">
 <a class="small" href="forgot-password.html">Forgot Password?</a>
 </div>
