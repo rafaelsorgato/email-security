@@ -4,12 +4,14 @@ from .forms import change_profile_form,change_password_form
 from django.http import HttpResponse,HttpResponseRedirect
 from .forms import LoginForm, RegisterForm,change_password_form,change_profile_form
 from django.contrib import messages
-from django.contrib.auth import authenticate, login,get_user
+from django.contrib.auth import authenticate, login,get_user,logout
 #from django.contrib.auth.models import User
 from . import models
 from django.http import JsonResponse
 import os
 from django.conf import settings
+from django.contrib.auth.hashers import check_password
+import re
 
 User = models.account
 
@@ -22,24 +24,44 @@ def profile(request):
         if (form:=change_password_form(request.POST)).is_valid():
             password = form.cleaned_data['password']
             repeatpassword = form.cleaned_data['repeatpassword']
-            oldpassword = form.cleaned_data['oldpassword']
-            user.set_password(password)
-            try:
-                user.save()
-                messages.error(request,"Password Updated")
-            except Exception as e:
-                messages.error(request,"Passwords didn't match")
+            actualpassword = form.cleaned_data['actualpassword']
+            if check_password(actualpassword, user.password):
+                if password == repeatpassword:
+                    if (len(password) < 8 or not re.search(r'[!@#$%^&*]', password) or not re.search(r'[A-Z]', password)):
+                        messages.error(request,"New password didn't match all conditions")
+                    else:
+                        user.set_password(password)
+                        try:
+                            user.save()
+                            messages.error(request,"Password Updated")
+                        except:
+                            messages.error(request,"Error while updating password, try again")   
+                            return HttpResponseRedirect('/profile/')
+                else:
+                    messages.error(request,"Passwords didn't match")
+                    return HttpResponseRedirect('/profile/')
+            else:
+                messages.error(request,"Wrong actual password")
+                return HttpResponseRedirect('/profile/')
+
         if (form:=change_profile_form(request.POST, request.FILES)).is_valid():
             username = form.cleaned_data['username']
             user.fullname = form.cleaned_data['fullname']
             user.username = username
-            user.email = form.cleaned_data['email']  
-            picture = request.FILES['picture']
-            print(picture)
-            user.picture = '/static/img_uploads/' + picture.name
-            with open('aplication/static/img_uploads/' + picture.name, 'wb+') as destination:
-                    for chunk in picture.chunks():
-                        destination.write(chunk)
+            user.email = form.cleaned_data['email'] 
+            picture = None
+            try: 
+                picture = request.FILES['picture']
+            except:
+                pass
+            if picture:
+                if not picture.name.lower().endswith(('.jpg', '.jpeg', '.png', '.gif')):
+                    messages.success(request,"File isn't an image")
+                    return HttpResponseRedirect('/profile/')
+                user.picture = '/static/img_uploads/' + picture.name
+                with open('aplication/static/img_uploads/' + picture.name, 'wb+') as destination:
+                        for chunk in picture.chunks():
+                            destination.write(chunk)
             try:
                 user.save()
                 messages.success(request,"Profile Updated")
@@ -94,3 +116,8 @@ def user_login(request):
                 messages.error(request, "Wrong username/email or password")
                 return render(request, 'login.html', {'form': form})
     return render(request, 'login.html', {'form': form})
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect('/login/')
+

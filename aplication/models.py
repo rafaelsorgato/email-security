@@ -14,7 +14,7 @@ class account(AbstractUser):
     username = models.TextField(max_length=100, unique=True)
     email = models.TextField(max_length=100, unique=True)
     password = models.TextField(max_length=100)
-    picture = models.ImageField(upload_to='aplication/static/img_uploads', blank=True, null=True)
+    picture = models.ImageField(upload_to='static/img_uploads', blank=True, null=True, default="../static/img_uploads/default.png")
     status = models.TextField(default = 'user', choices=STATUS_CHOICES)
 
     def __str__(self):
