@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+<title>SB Admin 2 - Blank</title>
+<!-- Custom fonts for this template-->
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" static_added="True" type="text/css"/>
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"/>
+<!-- Custom styles for this template-->
+<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet" static_added="True"/>
+</head>
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+{% include 'sidebar.html' %}
+<!-- Content Wrapper -->
+<div class="d-flex flex-column" id="content-wrapper">
+<!-- Main Content -->
+<div id="content">
+{% include 'header.html' %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">Rules</h1>
+<div class="card shadow mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary">Settings</h6>
+            </div>
+            <div class="card-body">
+                <form method='POST' enctype="multipart/form-data" action="{% url 'profile' %}" name="sendform" >
+                    {% csrf_token %}
+                    <input type="hidden" name="changeprofile" value="1">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label >Antispam detection level</label>
+                                {{ form.antispam }}
+                            </div>
+                            <div class="form-group">
+                                <label >Antiphishing detection level</label>
+                                {{ form.antiphishing }}
+                            </div>
+                        </div>
+                        <input type="hidden" name="settings" value="1">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+                
+    
+            </div>
+        </div></div>
+</div>
+<!-- /.container-fluid -->
+</div>
+{% include 'footer.html' %}
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}" static_added="True"></script>
+<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}" static_added="True"></script>
+<script src="{% static 'vendor/jquery/jquery.min.js' %}" static_added="True"></script>
+<script src="{% static 'js/sb-admin-2.min.js' %}" static_added="True"></script>
+<script src="{% static 'vendor/chart.js/Chart.min.js' %}" static_added="True"></script>
+<script src="{% static 'js/demo/chart-area-demo.js' %}" static_added="True"></script>
+<script src="{% static 'js/demo/chart-pie-demo.js' %}" static_added="True"></script>
+<script src="{% static 'js/demo/chart-bar-demo.js' %}" static_added="True"></script>
+</body>
+</html>

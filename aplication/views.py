@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import change_profile_form,change_password_form
 from django.http import HttpResponse,HttpResponseRedirect
-from .forms import LoginForm, RegisterForm,change_password_form,change_profile_form
+from .forms import LoginForm, RegisterForm,change_password_form,change_profile_form,Settings_forms
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,get_user,logout
 #from django.contrib.auth.models import User
@@ -121,3 +121,16 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/login/')
 
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+def charts(request):
+    return render(request, 'charts.html')
+
+def tables(request):
+    return render(request, 'tables.html')
+
+def rules(request):
+    form = Settings_forms()
+    return render(request, 'rules.html',{'form':form})

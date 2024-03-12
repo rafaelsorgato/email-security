@@ -25,3 +25,15 @@ class RegisterForm(forms.Form):
     email = forms.CharField(max_length=100, widget=forms.EmailInput(attrs={'class':'form-control form-control-user', 'placeholder': 'Email'}))
     password = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'class':'form-control form-control-user', 'placeholder': 'Password'}))
     repeatpassword = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'class':'form-control form-control-user', 'placeholder': 'Repeat Password'}))
+
+
+
+settings_choices = [
+    ("low", "Low"),
+    ("medium", "Medium"),
+    ("aggressive", "Aggressive")
+]
+
+class Settings_forms(forms.Form):
+    antispam = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control form-control-user'}), choices=settings_choices)
+    antiphishing = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control form-control-user'}), choices=settings_choices)

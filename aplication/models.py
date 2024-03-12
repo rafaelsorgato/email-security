@@ -23,3 +23,13 @@ class account(AbstractUser):
     @staticmethod
     def authenticate_user(username, password):
         return authenticate(username=username, password=password)
+    
+class rule_settings(models.Model):
+    SETTINGS_CHOICES = (
+        ('low', 'Low'),
+        ('medium', 'Medium'),
+        ('agressive', 'Agressive'),
+    )
+        
+    antispam = models.CharField(default = 'low', choices=SETTINGS_CHOICES, max_length=20)
+    antiphishing = models.CharField(default = 'low', choices=SETTINGS_CHOICES, max_length=20)
