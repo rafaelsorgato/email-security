@@ -47,7 +47,7 @@ class emails(models.Model):
     subject = models.CharField(max_length=100)
     sender = models.CharField(max_length=100)
     body = models.CharField(max_length=100)
-    sentondatetime = models.TimeField()
+    sentondatetime = models.DateTimeField()
     analysed = models.IntegerField(
             default=0
         )

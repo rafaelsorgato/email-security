@@ -131,6 +131,9 @@ def charts(request):
 def tables(request):
     return render(request, 'tables.html')
 
+def get_table_data(request):
+    return render(request, 'tables.html')
+
 def rules(request):
     form = Settings_forms()
     return render(request, 'rules.html',{'form':form})
