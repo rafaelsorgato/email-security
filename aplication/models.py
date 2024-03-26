@@ -42,3 +42,12 @@ def create_default_rule_settings(sender, **kwargs):
         rule_settings.objects.get_or_create(antispam='low', antiphishing='low')
         
 
+class emails(models.Model):
+
+    subject = models.CharField(max_length=100)
+    sender = models.CharField(max_length=100)
+    body = models.CharField(max_length=100)
+    sentondatetime = models.TimeField()
+    analysed = models.IntegerField(
+            default=0
+        )
