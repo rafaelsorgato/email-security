@@ -35,6 +35,9 @@
         </div>
         <div class="card-body">
             <table id="myTable" class="display" cellspacing="0" width="100%">
+                <button type="button" class="btn btn-link btn-sm" onclick="fetchTableData()">
+        <i class="fas fa-sync-alt"></i>
+    </button>
                 <thead>
                     <tr>
                         <th style="width: 15%;">Sender</th>
@@ -54,32 +57,33 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr>
-                        <td>test@hotmail.com</td>
-                        <td>this is a subject test</td>
-                        <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</td>
-                        <td>1</td>
-                        <td>2023-03-26 03:45:12</td>
-                    </tr>
-                    <tr>
-                        <td>asdasd@hotmail.com</td>
-                        <td>hi my name is asdasd</td>
-                        <td>it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</td>
-                        <td>1</td>
-                        <td>2023-03-26 03:45:11</td>
-                    </tr>
-                    <tr>
-                        <td>george@hotmail.com</td>
-                        <td>you dog has eaten my car</td>
-                        <td>been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</td>
-                        <td>1</td>
-                        <td>2023-03-26 03:45:13</td>
-                    </tr>
+                   
                 </tbody>
             </table>
-            
         </div>
         </div>
+        </div>
+
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Cabeçalho do modal -->
+                    <div class="modal-header">
+                        <h5 class="modal-title">Conteúdo do Email</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!-- Corpo do modal -->
+                    <div class="modal-body">
+                        <p id="modal-body-content">Conteúdo do modal. Aqui você pode adicionar o conteúdo que desejar.</p>
+                    </div>
+                    <!-- Rodapé do modal -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
         </div>
 </div>
 </div>
@@ -102,8 +106,74 @@
 <script src="{% static 'js/demo/chart-area-demo.js' %}" static_added="True"></script>
 <script src="{% static 'js/demo/chart-pie-demo.js' %}" static_added="True"></script>
 <script src="{% static 'js/demo/chart-bar-demo.js' %}" static_added="True"></script>
-<script>$(document).ready( function () {
-    $('#myTable').DataTable();
-} );</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+
+<script>
+        // Função para fazer a requisição AJAX
+        function fetchTableData() {
+            $.ajax({
+                url: '{% url "get_table_data" %}', // URL do seu view get_table_data
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // Limpa o corpo da tabela
+                    $('#myTable').DataTable().destroy();
+                    $('#myTable tbody').empty();
+    
+                    // Adiciona os dados retornados à tabela
+                    $.each(data, function(index, row) {
+                        $('#myTable tbody').append('<tr>' +
+                            '<td>' + row.sender + '</td>' +
+                            '<td>' + row.subject + '</td>' +
+                            '<td id="' + row.id + '" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;" onclick="openModal(' + row.id + ')">' + row.body + '</td>' +
+                            '<td>' + row.analysed + '</td>' +
+                            '<td>' + row.sentondatetime + '</td>' +
+                            '</tr>');
+                    });
+    
+                    // Inicializa o plugin DataTables
+                    $('#myTable').DataTable();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Ocorreu um erro ao buscar os dados da tabela:', error);
+                }
+            });
+        }
+        // Chama a função para buscar os dados da tabela quando o documento estiver pronto
+        fetchTableData();
+    </script>
+
+<script>
+
+function openModal(id) {
+    // Fazer a requisição AJAX para obter o htmlbody
+    $.ajax({
+        url: "{% url 'get_htmlbody' %}",
+        type: "GET",
+        data: { id: id },
+        dataType: 'json',  // Alterar o dataType para 'json'
+        success: function(data) {
+            // Obter o htmlbody do objeto retornado
+            var htmlbody = data.htmlbody;
+            
+            // Inserir o conteúdo retornado no modal
+            $(".modal-content").html(htmlbody);
+            
+            // Abrir o modal
+            $('#myModal').modal('show');
+        },
+        error: function(xhr, status, error) {
+            console.error('Erro ao obter o htmlbody:', error);
+        }
+    });
+}
+
+
+
+    </script>
+
 </body>
 </html>

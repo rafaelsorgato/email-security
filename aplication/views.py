@@ -7,11 +7,13 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login,get_user,logout
 #from django.contrib.auth.models import User
 from . import models
+from .models import emails
 from django.http import JsonResponse
 import os
 from django.conf import settings
 from django.contrib.auth.hashers import check_password
 import re
+from bs4 import BeautifulSoup
 
 User = models.account
 
@@ -131,8 +133,43 @@ def charts(request):
 def tables(request):
     return render(request, 'tables.html')
 
-def get_table_data(request):
-    return render(request, 'tables.html')
+def extract_text_from_html(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    # Remova todas as tags e obtenha apenas o texto
+    tag = soup.find('body')
+    text = tag.get_text()
+    return text
+
+def get_table_data(request):  
+    emails_data = emails.objects.all()[:100]
+    
+    json_data = [{
+        'id':email.id,
+        'subject':email.subject,
+        'sender':email.sender,
+        'body':email.body,
+        'sentondatetime':email.sentondatetime,
+        'analysed':email.analysed,
+    } for email in emails_data]
+
+    return JsonResponse(json_data, safe=False)
+
+def get_htmlbody(request):
+    # Obter o ID enviado pela requisição AJAX
+    email_id = request.GET.get('id')
+    print(email_id)
+    # Filtrar os emails com base no ID
+    try:
+        email = emails.objects.get(id=email_id)
+        html_body = email.htmlbody
+    except emails.DoesNotExist:
+        # Se o email com o ID especificado não for encontrado, retorne uma resposta vazia
+        return JsonResponse({}, status=404)
+
+    # Retornar o htmlbody do email encontrado
+    return JsonResponse({'htmlbody': html_body})
+
+    return JsonResponse(json_data, safe=False)
 
 def rules(request):
     form = Settings_forms()

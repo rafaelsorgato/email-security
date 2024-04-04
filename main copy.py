@@ -5,6 +5,7 @@ import datetime
 import os
 import django
 import pytz
+from bs4 import BeautifulSoup
 
 # Configurar as configurações do Django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "emailsecurity.settings")  
@@ -27,16 +28,26 @@ if __name__ == "__main__":
             message_sent_on = datetime.datetime(message.SentOn.year, message.SentOn.month, message.SentOn.day,message.SentOn.hour, message.SentOn.minute, message.SentOn.second, tzinfo=timezone)
             if message_sent_on > last_email_sentondate:
                 try:
-                    if hasattr(message ,'HTMLBody'):
-                        objeto_modelo = emails.objects.create(sender=message.SenderEmailAddress, body=message.HTMLBody, subject=message.Subject, sentondatetime=message_sent_on)
+                    if hasattr(message ,'HTMLBody') and hasattr(message ,'Body'):
+                        htmlbody = BeautifulSoup(message.HTMLBody, 'html.parser')
+                        for tag in htmlbody.find_all('style'):
+                            tag.decompose()
+                        htmlbody = str(htmlbody)
+                        objeto_modelo = emails.objects.create(sender=message.SenderEmailAddress, htmlbody=htmlbody, body=message.Body, subject=message.Subject, sentondatetime=message_sent_on)
                     elif hasattr(message ,'Body'):
                         objeto_modelo = emails.objects.create(sender=message.SenderEmailAddress, body=message.Body, subject=message.Subject, sentondatetime=message_sent_on)
+                    elif hasattr(message ,'HTMLBody'):
+                        htmlbody = BeautifulSoup(message.HTMLBody, 'html.parser')
+                        for tag in htmlbody.find_all('style'):
+                            tag.decompose()
+                        htmlbody = str(htmlbody)
+                        objeto_modelo = emails.objects.create(sender=message.SenderEmailAddress, htmlbody=htmlbody, subject=message.Subject, sentondatetime=message_sent_on)
                 except Exception as e:
-                    print("error in getting one email")
+                    print("error in getting one email: " + e)
             else:
                 continue
         except Exception as e:
-            print("error in getting senton from email")
+            print("error in getting senton from email: ", e)
     print("email search finished")
 
     pythoncom.CoUninitialize()

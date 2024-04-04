@@ -13,6 +13,9 @@ urlpatterns = [
     path('charts/', views.charts, name='charts'),
     path('tables/', views.tables, name='tables'),
     path('rules/', views.rules, name='rules'),
+    path('get_table_data/', views.get_table_data, name='get_table_data'),
+    path('get_htmlbody/', views.get_htmlbody, name='get_htmlbody'),
+
 
 ] 
 
