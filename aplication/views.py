@@ -141,15 +141,14 @@ def extract_text_from_html(html):
     return text
 
 def get_table_data(request):  
-    emails_data = emails.objects.all()[:100]
-    
+    emails_data = emails.objects.all().order_by('-receivedondate')
     json_data = [{
         'id':email.id,
         'subject':email.subject,
         'sender':email.sender,
         'body':email.body,
-        'sentondatetime':email.sentondatetime,
-        'analysed':email.analysed,
+        'receivedondate':email.receivedondate,
+        'action': "não" if email.action == 0 else "sim" if email.action == 1 else None,
     } for email in emails_data]
 
     return JsonResponse(json_data, safe=False)

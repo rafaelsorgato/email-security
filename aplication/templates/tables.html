@@ -39,11 +39,11 @@
         <i class="fas fa-sync-alt"></i>
     </button>
                 <thead>
-                    <tr>
+                    <tr>        
                         <th style="width: 15%;">Sender</th>
                         <th style="width: 20%;">Subject</th>
                         <th style="width: 40%;">Body</th>
-                        <th style="width: 5%;">Analysed</th>
+                        <th style="width: 5%;">Action</th>
                         <th style="width: 20%;">Date</th>
                     </tr>
                 </thead>
@@ -52,7 +52,7 @@
                         <th>Sender</th>
                         <th>Subject</th>
                         <th>Body</th>
-                        <th>Analysed</th>
+                        <th>Action</th>
                         <th>Date</th>
                     </tr>
                 </tfoot>
@@ -125,14 +125,18 @@
     
                     // Adiciona os dados retornados à tabela
                     $.each(data, function(index, row) {
-                        $('#myTable tbody').append('<tr>' +
+                        $('#myTable tbody').append('<tr>' +               
                             '<td>' + row.sender + '</td>' +
                             '<td>' + row.subject + '</td>' +
                             '<td id="' + row.id + '" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;" onclick="openModal(' + row.id + ')">' + row.body + '</td>' +
-                            '<td>' + row.analysed + '</td>' +
-                            '<td>' + row.sentondatetime + '</td>' +
+                            '<td>' + row.action + '</td>' +
+                            '<td>' + row.receivedondate + '</td>' +
                             '</tr>');
                     });
+                    $('#myTable').DataTable({
+                    "order": [[4, "desc"]]
+                });
+                    
     
                     // Inicializa o plugin DataTables
                     $('#myTable').DataTable();
