@@ -141,7 +141,9 @@ def extract_text_from_html(html):
     return text
 
 def get_table_data(request):  
-    emails_data = emails.objects.all().order_by('-receivedondate')
+    actual_value = int(request.GET.get('valorAtual'))
+    total_rows = emails.objects.all().count()
+    emails_data = emails.objects.all().order_by('-receivedondate')[:actual_value]
     json_data = [{
         'id':email.id,
         'subject':email.subject,
@@ -151,7 +153,9 @@ def get_table_data(request):
         'action': "não" if email.action == 0 else "sim" if email.action == 1 else None,
     } for email in emails_data]
 
-    return JsonResponse(json_data, safe=False)
+    total_rows_json = {"total_rows": total_rows,"actual_value":actual_value}
+
+    return JsonResponse({'table_data': json_data, 'total_rows_json': total_rows_json})
 
 def get_htmlbody(request):
     # Obter o ID enviado pela requisição AJAX
