@@ -14,6 +14,9 @@ from django.conf import settings
 from django.contrib.auth.hashers import check_password
 import re
 from bs4 import BeautifulSoup
+from datetime import datetime
+from django.db.models import Count
+from django.db.models.functions import TruncMonth
 
 User = models.account
 
@@ -128,7 +131,24 @@ def dashboard(request):
     return render(request, 'dashboard.html')
 
 def charts(request):
-    return render(request, 'charts.html')
+    # Obtém os dados do banco de dados agrupados por mês
+    data = emails.objects.annotate(month=TruncMonth('receivedondate')).values('month').annotate(total=Count('id'))
+
+    months = []
+    totals = []
+    for entry in data:
+        month = entry['month'].strftime('%B %Y')  
+        total = entry['total']
+        months.append(month)
+        totals.append(total)
+
+    context = {
+        'months': months,
+        'totals': totals,
+    }
+
+    # Renderiza o template com os dados
+    return render(request, 'charts.html', context)
 
 def tables(request):
     return render(request, 'tables.html')
@@ -150,7 +170,7 @@ def get_table_data(request):
         'sender':email.sender,
         'body':email.body,
         'receivedondate':email.receivedondate,
-        'action': "não" if email.action == 0 else "sim" if email.action == 1 else None,
+        'action': "Queued" if email.action == 0 else "Pass" if email.action == 1 else "Junk" if email.action == 2 else "Quarantined" if email.action == 1 else None,
     } for email in emails_data]
 
     total_rows_json = {"total_rows": total_rows,"actual_value":actual_value}

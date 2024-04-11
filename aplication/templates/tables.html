@@ -129,7 +129,7 @@
 <script>
         // Função para fazer a requisição AJAX
         function fetchTableData() {
-            var valorAtual = $('#customRange2').val();
+            var valorAtual = $('#TotalEmails').val();
             valorAtual = valorAtual ? valorAtual : 100;
             $('#refreshIcon').addClass('rotate');
             $.ajax({
@@ -151,7 +151,7 @@
                         $('#myTable tbody').append('<tr>' +               
                             '<td>' + row.sender + '</td>' +
                             '<td>' + row.subject + '</td>' +
-                            '<td id="' + row.id + '" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;" onclick="openModal(' + row.id + ')">' + row.body + '</td>' +
+                            '<td id="' + row.id + '" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; word-wrap: break-word;" onclick="openModal(' + row.id + ')">' + row.body + '</td>' +
                             '<td>' + row.action + '</td>' +
                             '<td>' + row.receivedondate + '</td>' +
                             '</tr>');
@@ -162,17 +162,20 @@
                 $('#myTable').DataTable();
                 
                 $('#myTable_wrapper').find('div').find('div').first().append('<p id="totalRows""></p>');
-                $('#myTable_wrapper').find('div').find('div').first().append('<input style="width: 220px;" type="range" class="form-range" min="0" value='+ data.total_rows_json.actual_value +' max='+ data.total_rows_json.total_rows + ' id="customRange2">');
+                $('#myTable_wrapper').find('div').find('div').first().append('<input style="width: 220px;" type="range" class="form-range" min="0" value='+ data.total_rows_json.actual_value +' max='+ data.total_rows_json.total_rows + ' id="TotalEmails">');
                 $('#totalRows').text('Total rows: ' + data.total_rows_json.total_rows + ' | Showing: ' + data.total_rows_json.actual_value);
 
-                $('#customRange2').on('input', function() {
+                $('#TotalEmails').on('input', function() {
                 var valorAtual = $(this).val();
                 var totalLinhas = data.total_rows_json.total_rows;
                 var texto = 'Total rows: ' + totalLinhas + ' | Showing: ' + valorAtual;
                 $('#totalRows').text(texto);
                 console.log('Evento input acionado. Valor atual:', valorAtual);
                 // Chame sua função aqui, se necessário
-});
+                });
+                $('#TotalEmails').on('change', function() {
+                    fetchTableData();
+                });
                 },
                 error: function(xhr, status, error) {
                     console.error('Ocorreu um erro ao buscar os dados da tabela:', error);
