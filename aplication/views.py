@@ -17,6 +17,9 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
+from django.db.models.functions import ExtractMonth
+import calendar
+import json
 
 User = models.account
 
@@ -131,23 +134,41 @@ def dashboard(request):
     return render(request, 'dashboard.html')
 
 def charts(request):
-    # Obtém os dados do banco de dados agrupados por mês
-    data = emails.objects.annotate(month=TruncMonth('receivedondate')).values('month').annotate(total=Count('id'))
+    # Obter o ano atual
+    current_year = datetime.now().year
 
-    months = []
-    totals = []
+    # Lista de nomes abreviados dos meses
+    month_abbr_names = [calendar.month_abbr[month_num] for month_num in range(1, 13)]
+
+    # Inicializar os totais para todos os meses com zero
+    monthly_totals = {month_abbr_names[i]: 0 for i in range(12)}
+    # Consulta para obter o count de emails por mês do ano atual
+    data = emails.objects.filter(receivedondate__year=current_year) \
+                        .annotate(month=ExtractMonth('receivedondate')) \
+                        .values('month') \
+                        .annotate(total=Count('id')) \
+                        .order_by('month')
+    print(data)
+
+    # Atualize os totais com os valores reais
     for entry in data:
-        month = entry['month'].strftime('%B %Y')  
+        # Ajuste o mês para corresponder aos índices da lista de meses abreviados
+        month = month_abbr_names[entry['month'] - 1]
         total = entry['total']
-        months.append(month)
-        totals.append(total)
+        monthly_totals[month] = total
+
+    # Criar o contexto JSON
 
     context = {
-        'months': months,
-        'totals': totals,
+        'months': json.dumps(list(monthly_totals.keys())),
+        'totals': list(monthly_totals.values())
     }
 
-    # Renderiza o template com os dados
+
+    # Converter para JSON
+    json_context = json.dumps(context)
+
+    print(json_context)
     return render(request, 'charts.html', context)
 
 def tables(request):
