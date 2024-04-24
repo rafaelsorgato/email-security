@@ -143,23 +143,70 @@ def charts(request):
     # Inicializar os totais para todos os meses com zero
     monthly_totals = {month_abbr_names[i]: 0 for i in range(12)}
     # Consulta para obter o count de emails por mês do ano atual
-    data = emails.objects.filter(receivedondate__year=current_year) \
+    queueddata = emails.objects.filter(receivedondate__year=current_year) \
                         .annotate(month=ExtractMonth('receivedondate')) \
                         .values('month') \
                         .annotate(total=Count('id')) \
                         .order_by('month')
-    print(data)
+    queueddata_total_sum = sum(item['total'] for item in queueddata)
+    noactiondata = emails.objects.filter(receivedondate__year=current_year, action=1) \
+                        .annotate(month=ExtractMonth('receivedondate')) \
+                        .values('month') \
+                        .annotate(total=Count('id')) \
+                        .order_by('month')
+    quarantineddata = emails.objects.filter(receivedondate__year=current_year, action=2) \
+                        .annotate(month=ExtractMonth('receivedondate')) \
+                        .values('month') \
+                        .annotate(total=Count('id')) \
+                        .order_by('month')
+    deleteddata = emails.objects.filter(receivedondate__year=current_year, action=3) \
+                        .annotate(month=ExtractMonth('receivedondate')) \
+                        .values('month') \
+                        .annotate(total=Count('id')) \
+                        .order_by('month')
 
+    print(deleteddata)
     # Atualize os totais com os valores reais
-    for entry in data:
+    queueddata_total = monthly_totals.copy()
+    noactiondata_total = monthly_totals.copy()
+    deleteddata_total = monthly_totals.copy()
+    quarantineddata_total = monthly_totals.copy()
+    totaldata_total = monthly_totals.copy()
+    for entry in noactiondata:
         # Ajuste o mês para corresponder aos índices da lista de meses abreviados
         month = month_abbr_names[entry['month'] - 1]
         total = entry['total']
-        monthly_totals[month] = total
-
+        noactiondata_total[month] = total
+    for entry in quarantineddata:
+        # Ajuste o mês para corresponder aos índices da lista de meses abreviados
+        month = month_abbr_names[entry['month'] - 1]
+        total = entry['total']
+        noactiondata_total[month] = total
+    for entry in deleteddata:
+        # Ajuste o mês para corresponder aos índices da lista de meses abreviados
+        month = month_abbr_names[entry['month'] - 1]
+        total = entry['total']
+        deleteddata_total[month] = total
+    for entry in queueddata:
+        # Ajuste o mês para corresponder aos índices da lista de meses abreviados
+        month = month_abbr_names[entry['month'] - 1]
+        total = entry['total']
+        queueddata_total[month] = total
     # Criar o contexto JSON
+    print(month_abbr_names)
+    for months in range(0,12):
+        month = month_abbr_names[months]
+        totaldata_total[month] = (deleteddata_total.get(month, 0) +
+                          noactiondata_total.get(month, 0) +
+                          noactiondata_total.get(month, 0)+
+                          queueddata_total.get(month, 0))
 
     context = {
+        'quarantineddata_total': list(quarantineddata_total.values()),
+        'noactiondata_total': list(noactiondata_total.values()),
+        'queueddata_total': queueddata_total_sum,
+        'deleteddata_total': list(deleteddata_total.values()),
+        'totaldata_total': list(totaldata_total.values()),
         'months': json.dumps(list(monthly_totals.keys())),
         'totals': list(monthly_totals.values())
     }

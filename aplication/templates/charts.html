@@ -28,105 +28,314 @@
 <div class="container-fluid">
 <!-- Page Heading -->
 <h1 class="h3 mb-4 text-gray-800">Charts</h1>
+<br>
+<h3>Total of emails in queue:  {{ queueddata_total|safe }}</h3>
 <div class="card shadow mb-4">
     <div class="row">
         <div class="col-xl-12 col-lg-7">
         <!-- Bar Chart -->
         <div class="card shadow mb-4">
         <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Total</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Total Emails</h6>
         </div>
         <div class="card-body">
-        <div class="chart-bar">
-            <div id="emailbymonth"></div>
-            <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                    // Opções do gráfico
-                    var options = {
-                        series: [{
-                            name: 'Inflation',
-                            data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
-                        }],
-                        chart: {
-                            height: 350,
-                            type: 'bar',
-                        },
-                        plotOptions: {
-                            bar: {
-                                borderRadius: 10,
-                                dataLabels: {
-                                    position: 'top', // top, center, bottom
+            <div class="chart-bar">
+                <div id="emailtotal"></div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                        // Opções do gráfico
+                        var options = {
+                            series: [{
+                                name: 'Total of emails',
+                                data: JSON.parse('{{ totaldata_total|safe }}'),
+                            }],
+                            chart: {
+                                height: 350,
+                                type: 'bar',
+                            },
+                            plotOptions: {
+                                bar: {
+                                    borderRadius: 10,
+                                    dataLabels: {
+                                        position: 'top', // top, center, bottom
+                                    },
+                                }
+                            },
+                            dataLabels: {
+                                enabled: true,
+                                formatter: function (val) {
+                                    return val;
                                 },
-                            }
-                        },
-                        dataLabels: {
-                            enabled: true,
-                            formatter: function (val) {
-                                return val + "%";
+                                offsetY: -20,
+                                style: {
+                                    fontSize: '12px',
+                                    colors: ["#304758"]
+                                }
                             },
-                            offsetY: -20,
-                            style: {
-                                fontSize: '12px',
-                                colors: ["#304758"]
-                            }
-                        },
-                        xaxis: {
-                            categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                            position: 'top',
-                            axisBorder: {
-                                show: false
+                            xaxis: {
+                                categories: JSON.parse('{{ months|safe }}'),
+                                position: 'top',
+                                axisBorder: {
+                                    show: false
+                                },
+                                axisTicks: {
+                                    show: false
+                                },
+                                crosshairs: {
+                                    fill: {
+                                        type: 'gradient',
+                                        gradient: {
+                                            colorFrom: '#D8E3F0',
+                                            colorTo: '#BED1E6',
+                                            stops: [0, 100],
+                                            opacityFrom: 0.4,
+                                            opacityTo: 0.5,
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    enabled: true,
+                                }
                             },
-                            axisTicks: {
-                                show: false
-                            },
-                            crosshairs: {
-                                fill: {
-                                    type: 'gradient',
-                                    gradient: {
-                                        colorFrom: '#D8E3F0',
-                                        colorTo: '#BED1E6',
-                                        stops: [0, 100],
-                                        opacityFrom: 0.4,
-                                        opacityTo: 0.5,
+                            yaxis: {
+                                axisBorder: {
+                                    show: false
+                                },
+                                axisTicks: {
+                                    show: false,
+                                },
+                                labels: {
+                                    show: false,
+                                    formatter: function (val) {
+                                        return val;
                                     }
                                 }
+                
                             },
-                            tooltip: {
-                                enabled: true,
-                            }
-                        },
-                        yaxis: {
-                            axisBorder: {
-                                show: false
-                            },
-                            axisTicks: {
-                                show: false,
-                            },
-                            labels: {
-                                show: false,
-                                formatter: function (val) {
-                                    return val + "%";
+                            title: {
+                                text: 'Total of emails by month',
+                                floating: true,
+                                offsetY: 330,
+                                align: 'center',
+                                style: {
+                                    color: '#444'
                                 }
                             }
-        
-                        },
-                        title: {
-                            text: 'Total of emails analysed by month',
-                            floating: true,
-                            offsetY: 330,
-                            align: 'center',
-                            style: {
-                                color: '#444'
-                            }
-                        }
-                    };
-        
-                    // Criando o gráfico de colunas
-                    var chart = new ApexCharts(document.querySelector("#emailbymonth"), options);
-                    chart.render();
-                });
-            </script>
+                        };
+                
+                        // Criando o gráfico de colunas
+                        var chart = new ApexCharts(document.querySelector("#emailtotal"), options);
+                        chart.render();
+                    });
+                </script>
+                
+            </div>
         </div>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-7">
+        <!-- Bar Chart -->
+        <div class="card shadow mb-4">
+        <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">No Action</h6>
+        </div>
+        <div class="card-body">
+            <div class="chart-bar">
+                <div id="emailnoaction"></div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                        // Opções do gráfico
+                        var options = {
+                            series: [{
+                                name: 'Total of no action emails',
+                                data: JSON.parse('{{ noactiondata_total|safe }}'),
+                            }],
+                            chart: {
+                                height: 350,
+                                type: 'bar',
+                            },
+                            plotOptions: {
+                                bar: {
+                                    borderRadius: 10,
+                                    dataLabels: {
+                                        position: 'top', // top, center, bottom
+                                    },
+                                }
+                            },
+                            dataLabels: {
+                                enabled: true,
+                                formatter: function (val) {
+                                    return val;
+                                },
+                                offsetY: -20,
+                                style: {
+                                    fontSize: '12px',
+                                    colors: ["#304758"]
+                                }
+                            },
+                            xaxis: {
+                                categories: JSON.parse('{{ months|safe }}'),
+                                position: 'top',
+                                axisBorder: {
+                                    show: false
+                                },
+                                axisTicks: {
+                                    show: false
+                                },
+                                crosshairs: {
+                                    fill: {
+                                        type: 'gradient',
+                                        gradient: {
+                                            colorFrom: '#D8E3F0',
+                                            colorTo: '#BED1E6',
+                                            stops: [0, 100],
+                                            opacityFrom: 0.4,
+                                            opacityTo: 0.5,
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    enabled: true,
+                                }
+                            },
+                            yaxis: {
+                                axisBorder: {
+                                    show: false
+                                },
+                                axisTicks: {
+                                    show: false,
+                                },
+                                labels: {
+                                    show: false,
+                                    formatter: function (val) {
+                                        return val;
+                                    }
+                                }
+                
+                            },
+                            title: {
+                                text: 'Total of emails without action needed by month',
+                                floating: true,
+                                offsetY: 330,
+                                align: 'center',
+                                style: {
+                                    color: '#444'
+                                }
+                            }
+                        };
+                
+                        // Criando o gráfico de colunas
+                        var chart = new ApexCharts(document.querySelector("#emailnoaction"), options);
+                        chart.render();
+                    });
+                </script>
+                
+            </div>
+        </div>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-7">
+        <!-- Bar Chart -->
+        <div class="card shadow mb-4">
+        <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Quarantined</h6>
+        </div>
+        <div class="card-body">
+            <div class="chart-bar">
+                <div id="emailquarantined"></div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                        // Opções do gráfico
+                        var options = {
+                            series: [{
+                                name: 'Total of quarantined emails',
+                                data: JSON.parse('{{ quarantineddata_total|safe }}'),
+                            }],
+                            chart: {
+                                height: 350,
+                                type: 'bar',
+                            },
+                            plotOptions: {
+                                bar: {
+                                    borderRadius: 10,
+                                    dataLabels: {
+                                        position: 'top', // top, center, bottom
+                                    },
+                                }
+                            },
+                            dataLabels: {
+                                enabled: true,
+                                formatter: function (val) {
+                                    return val;
+                                },
+                                offsetY: -20,
+                                style: {
+                                    fontSize: '12px',
+                                    colors: ["#304758"]
+                                }
+                            },
+                            xaxis: {
+                                categories: JSON.parse('{{ months|safe }}'),
+                                position: 'top',
+                                axisBorder: {
+                                    show: false
+                                },
+                                axisTicks: {
+                                    show: false
+                                },
+                                crosshairs: {
+                                    fill: {
+                                        type: 'gradient',
+                                        gradient: {
+                                            colorFrom: '#D8E3F0',
+                                            colorTo: '#BED1E6',
+                                            stops: [0, 100],
+                                            opacityFrom: 0.4,
+                                            opacityTo: 0.5,
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    enabled: true,
+                                }
+                            },
+                            yaxis: {
+                                axisBorder: {
+                                    show: false
+                                },
+                                axisTicks: {
+                                    show: false,
+                                },
+                                labels: {
+                                    show: false,
+                                    formatter: function (val) {
+                                        return val;
+                                    }
+                                }
+                
+                            },
+                            title: {
+                                text: 'Total of quarantined emails by month',
+                                floating: true,
+                                offsetY: 330,
+                                align: 'center',
+                                style: {
+                                    color: '#444'
+                                }
+                            }
+                        };
+                
+                        // Criando o gráfico de colunas
+                        var chart = new ApexCharts(document.querySelector("#emailquarantined"), options);
+                        chart.render();
+                    });
+                </script>
+                
+            </div>
         </div>
         </div>
         </div>
@@ -147,7 +356,7 @@
                         var options = {
                             series: [{
                                 name: 'Total of deleted emails',
-                                data: JSON.parse('{{ totals|safe }}'),
+                                data: JSON.parse('{{ deleteddata_total|safe }}'),
                             }],
                             chart: {
                                 height: 350,
@@ -229,108 +438,6 @@
                     });
                 </script>
                 
-            </div>
-        </div>
-        </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xl-12 col-lg-7">
-        <!-- Bar Chart -->
-        <div class="card shadow mb-4">
-        <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Quarantined</h6>
-        </div>
-        <div class="card-body">
-            <div class="chart-bar">
-                <div id="emailquarantined"></div>
-                <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                        // Opções do gráfico
-                        var options = {
-                            series: [{
-                                name: 'Inflation',
-                                data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
-                            }],
-                            chart: {
-                                height: 350,
-                                type: 'bar',
-                            },
-                            plotOptions: {
-                                bar: {
-                                    borderRadius: 10,
-                                    dataLabels: {
-                                        position: 'top', // top, center, bottom
-                                    },
-                                }
-                            },
-                            dataLabels: {
-                                enabled: true,
-                                formatter: function (val) {
-                                    return val + "%";
-                                },
-                                offsetY: -20,
-                                style: {
-                                    fontSize: '12px',
-                                    colors: ["#304758"]
-                                }
-                            },
-                            xaxis: {
-                                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                                position: 'top',
-                                axisBorder: {
-                                    show: false
-                                },
-                                axisTicks: {
-                                    show: false
-                                },
-                                crosshairs: {
-                                    fill: {
-                                        type: 'gradient',
-                                        gradient: {
-                                            colorFrom: '#D8E3F0',
-                                            colorTo: '#BED1E6',
-                                            stops: [0, 100],
-                                            opacityFrom: 0.4,
-                                            opacityTo: 0.5,
-                                        }
-                                    }
-                                },
-                                tooltip: {
-                                    enabled: true,
-                                }
-                            },
-                            yaxis: {
-                                axisBorder: {
-                                    show: false
-                                },
-                                axisTicks: {
-                                    show: false,
-                                },
-                                labels: {
-                                    show: false,
-                                    formatter: function (val) {
-                                        return val + "%";
-                                    }
-                                }
-            
-                            },
-                            title: {
-                                text: 'Total of quarantined emails by month',
-                                floating: true,
-                                offsetY: 330,
-                                align: 'center',
-                                style: {
-                                    color: '#444'
-                                }
-                            }
-                        };
-            
-                        // Criando o gráfico de colunas
-                        var chart = new ApexCharts(document.querySelector("#emailquarantined"), options);
-                        chart.render();
-                    });
-                </script>
             </div>
         </div>
         </div>
