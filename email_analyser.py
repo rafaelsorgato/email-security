@@ -30,10 +30,22 @@ django.setup()
 
 from aplication.models import emails
 
+
 def analyse_emails():
-    timezone = pytz.timezone('America/Sao_Paulo')
-    for email in emails.objects.all():
-        print('oi')
+    model = joblib.load('modelo_treinado.pkl')
+    feature_extraction = joblib.load('vetor.pkl')
+
+
+    for email in emails.objects.all()[:100]:
+        input_data_features = feature_extraction.transform([email.body])
+        prediction = model.predict(input_data_features)
+        prediction_prob = model.predict_proba(input_data_features)[0][1]
+        if prediction_prob > 0.2:
+            print(prediction_prob)
+            print(email.body)
+#
+
+    #timezone = pytz.timezone('America/Sao_Paulo')
 
 
 def train_model():
@@ -55,13 +67,11 @@ def train_model():
     model = LogisticRegression()
     model.fit(X_train_features, Y_train)
 
+    joblib.dump(feature_extraction, 'vetor.pkl')
     joblib.dump(model, 'modelo_treinado.pkl')
-    #modelo_carregado = joblib.load('modelo_treinado.pkl')
 
-    # Prever para novos dados
-    for email in emails.objects.all()[:10]:
-        input_data_features = feature_extraction.transform([email.body])
-        prediction = model.predict(input_data_features)
-        print(prediction)
+    
 
-train_model()
+#train_model()
+
+analyse_emails()
