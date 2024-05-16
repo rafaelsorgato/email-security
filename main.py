@@ -2,8 +2,8 @@ import subprocess
 import multiprocessing
 import time
 from imap_tools import MailBox, AND
+import joblib
 
-# Server is the address of the IMAP server
 
 def run_custom_script():
     # Configurações de login
