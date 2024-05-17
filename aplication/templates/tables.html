@@ -58,8 +58,9 @@
                         <th style="width: 15%;">Sender</th>
                         <th style="width: 20%;">Subject</th>
                         <th style="width: 40%;">Body</th>
+                        <th style="width: 5%;">Category</th>
                         <th style="width: 5%;">Action</th>
-                        <th style="width: 20%;">Date</th>
+                        <th style="width: 15%;">Date</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -67,6 +68,7 @@
                         <th>Sender</th>
                         <th>Subject</th>
                         <th>Body</th>
+                        <th>Category</th>
                         <th>Action</th>
                         <th>Date</th>
                     </tr>
@@ -152,6 +154,7 @@
                             '<td>' + row.sender + '</td>' +
                             '<td>' + row.subject + '</td>' +
                             '<td id="' + row.id + '" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; word-wrap: break-word;" onclick="openModal(' + row.id + ')">' + row.body + '</td>' +
+                            '<td>' + row.category + '</td>' +
                             '<td>' + row.action + '</td>' +
                             '<td>' + row.receivedondate + '</td>' +
                             '</tr>');

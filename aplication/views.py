@@ -238,6 +238,7 @@ def get_table_data(request):
         'sender':email.sender,
         'body':email.body,
         'receivedondate':email.receivedondate,
+        'category':email.category,
         'action': "Queued" if email.action == 0 else "Pass" if email.action == 1 else "Junk" if email.action == 2 else "Quarantined" if email.action == 1 else None,
     } for email in emails_data]
 

@@ -52,3 +52,6 @@ class emails(models.Model):
     action = models.IntegerField(
             default=0
         )
+    category = models.CharField(
+            default="Queued",max_length=100
+        )

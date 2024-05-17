@@ -1,6 +1,6 @@
 #custom
-training_files\combined_data.csv
-training_files\combined_data.csv.zip
+phishing.csv
+spam.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
